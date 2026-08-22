@@ -1,208 +1,26 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GlobeTrotter — Modern Travel Dashboard</title>
-    <meta
-      name="description"
-      content="A modern, responsive GlobeTrotter travel planning dashboard."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div id="toast" class="toast"></div>
-    <div id="authView" class="auth-shell">
-      <div class="auth-art">
-        <div class="brand brand-light">
-          <span class="brand-mark">✦</span> GlobeTrotter
-        </div>
-        <div class="art-copy">
-          <span class="eyebrow">TRAVEL, YOUR WAY</span>
-          <h1>Plan less.<br /><span>Experience more.</span></h1>
-          <p>
-            Build beautiful multi-city journeys, discover hidden gems, and keep
-            every detail in one calm, intelligent workspace.
-          </p>
-          <div class="floating-stat">
-            <strong>24,860+</strong><span>journeys planned</span>
-          </div>
-        </div>
-        <div class="route route-a"></div>
-        <div class="route route-b"></div>
-      </div>
-      <div class="auth-panel">
-        <div class="auth-card">
-          <div class="brand">
-            <span class="brand-mark">✦</span> GlobeTrotter
-          </div>
-          <div class="auth-tabs">
-            <button class="auth-tab active" data-auth="login">Sign in</button
-            ><button class="auth-tab" data-auth="signup">Create account</button>
-          </div>
-          <form id="loginForm" class="auth-form">
-            <div>
-              <label>Username or Email</label
-              ><input
-                id="loginIdentifier"
-                type="text"
-                required
-                placeholder="Username or email"
-                autocomplete="username"
-              />
-            </div>
-            <div>
-              <label>Password</label>
-              <div class="password">
-                <input
-                  id="loginPassword"
-                  type="password"
-                  required
-                  placeholder="••••••••"
-                  autocomplete="current-password"
-                /><button type="button" class="eye" data-toggle-password>
-                  ◉
-                </button>
-              </div>
-            </div>
-            <div class="auth-row">
-              <label class="check"
-                ><input id="rememberMe" type="checkbox" /> Remember me</label
-              ><button type="button" class="link-btn" data-forgot>
-                Forgot password?
-              </button>
-            </div>
-            <button class="primary wide" type="submit">
-              Sign in <span>→</span>
-            </button>
-          </form>
-          <form id="signupForm" class="auth-form hidden">
-            <div>
-              <label>Full Name</label
-              ><input
-                id="signupName"
-                required
-                placeholder="Aarav Mehta"
-                autocomplete="name"
-              />
-            </div>
-            <div>
-              <label>Username</label
-              ><input
-                id="signupUsername"
-                required
-                minlength="3"
-                maxlength="30"
-                pattern="[A-Za-z0-9_]{3,30}"
-                placeholder="aarav_mehta"
-                autocomplete="username"
-              />
-            </div>
-            <div>
-              <label>Email</label
-              ><input
-                id="signupEmail"
-                type="email"
-                required
-                placeholder="you@example.com"
-                autocomplete="email"
-              />
-            </div>
-            <div>
-              <label>Password</label
-              ><input
-                id="signupPassword"
-                type="password"
-                minlength="8"
-                required
-                placeholder="At least 8 characters"
-                autocomplete="new-password"
-              />
-            </div>
-            <div class="password-hint">
-              Use 8+ characters with an uppercase letter and a number.
-            </div>
-            <div>
-              <label>Confirm Password</label
-              ><input
-                id="signupConfirmPassword"
-                type="password"
-                minlength="8"
-                required
-                placeholder="Confirm password"
-                autocomplete="new-password"
-              />
-            </div>
-            <button class="primary wide" type="submit">
-              Create my account <span>→</span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div id="appView" class="app hidden">
-      <aside class="sidebar">
-        <div class="brand">
-          <span class="brand-mark">✦</span><span>GlobeTrotter</span>
-        </div>
-        <button class="mobile-close" data-close-sidebar>×</button>
-        <nav>
-          <p class="nav-label">Workspace</p>
-          <button class="nav-item active" data-page="dashboard">
-            <i>⌂</i> Overview</button
-          ><button class="nav-item" data-page="trips"><i>▱</i> My trips</button
-          ><button class="nav-item" data-page="discover">
-            <i>⌕</i> Discover
-          </button>
-          <p class="nav-label">Plan</p>
-          <button class="nav-item" data-page="itinerary">
-            <i>✣</i> Itinerary</button
-          ><button class="nav-item" data-page="calendar">
-            <i>□</i> Calendar</button
-          ><button class="nav-item" data-page="budget"><i>◒</i> Budget</button>
-          <p class="nav-label">Community</p>
-          <button class="nav-item" data-page="community">
-            <i>◉</i> Community</button
-          ><button class="nav-item" data-page="shared">
-            <i>↗</i> Shared trips
-          </button>
-          <p class="nav-label">Account</p>
-          <button class="nav-item" data-page="profile">
-            <i>◯</i> Profile & settings
-          </button>
-        </nav>
-        <div class="side-tip">
-          <span>✦</span>
-          <div>
-            <b>Travel smarter</b
-            ><small>Keep your itinerary and budget in sync.</small>
-          </div>
-        </div>
-        <button class="logout" data-logout>↪ <span>Sign out</span></button>
-      </aside>
-      <main class="main">
-        <header class="topbar">
-          <button class="hamburger" data-open-sidebar>☰</button>
-          <div class="breadcrumbs" id="breadcrumbs">Overview</div>
-          <div class="top-actions">
-            <button class="icon-btn" data-notifications title="Notifications">
-              ♢<span class="dot"></span></button
-            ><button class="avatar" data-page="profile">AM</button>
-          </div>
-        </header>
-        <div id="content" class="content"></div>
-      </main>
-    </div>
-    <div id="modal" class="modal hidden">
-      <div class="modal-backdrop" data-close-modal></div>
-      <div class="modal-card" id="modalCard"></div>
-    </div>
-    <script src="script.js"></script>
-  </body>
-</html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlobeTrotter — Modern Travel Dashboard</title>
+<meta name="description" content="A modern, responsive GlobeTrotter travel planning dashboard.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="toast" class="toast"></div>
+<div id="authView" class="auth-shell">
+  <div class="auth-art"><div class="brand brand-light"><span class="brand-mark">✦</span> GlobeTrotter</div><div class="art-copy"><span class="eyebrow">TRAVEL, YOUR WAY</span><h1>Plan less.<br><span>Experience more.</span></h1><p>Build beautiful multi-city journeys, discover hidden gems, and keep every detail in one calm, intelligent workspace.</p><div class="floating-stat"><strong>24,860+</strong><span>journeys planned</span></div></div><div class="route route-a"></div><div class="route route-b"></div></div>
+  <div class="auth-panel"><div class="auth-card"><div class="brand"><span class="brand-mark">✦</span> GlobeTrotter</div><div class="auth-tabs"><button class="auth-tab active" data-auth="login">Sign in</button><button class="auth-tab" data-auth="signup">Create account</button></div>
+    <form id="loginForm" class="auth-form"><div><label>Username or Email</label><input id="loginIdentifier" type="text" required placeholder="Username or email" autocomplete="username"></div><div><label>Password</label><div class="password"><input id="loginPassword" type="password" required placeholder="••••••••" autocomplete="current-password"><button type="button" class="eye" data-toggle-password>◉</button></div></div><div class="auth-row"><label class="check"><input id="rememberMe" type="checkbox"> Remember me</label><button type="button" class="link-btn" data-forgot>Forgot password?</button></div><button class="primary wide" type="submit">Sign in <span>→</span></button></form>
+    <form id="signupForm" class="auth-form hidden"><div><label>Full Name</label><input id="signupName" required placeholder="Aarav Mehta" autocomplete="name"></div><div><label>Username</label><input id="signupUsername" required minlength="3" maxlength="30" pattern="[A-Za-z0-9_]{3,30}" placeholder="aarav_mehta" autocomplete="username"></div><div><label>Email</label><input id="signupEmail" type="email" required placeholder="you@example.com" autocomplete="email"></div><div><label>Password</label><input id="signupPassword" type="password" minlength="8" required placeholder="At least 8 characters" autocomplete="new-password"></div><div class="password-hint">Use 8+ characters with an uppercase letter and a number.</div><div><label>Confirm Password</label><input id="signupConfirmPassword" type="password" minlength="8" required placeholder="Confirm password" autocomplete="new-password"></div><button class="primary wide" type="submit">Create my account <span>→</span></button></form>
+  </div></div>
+</div>
+<div id="appView" class="app hidden">
+  <aside class="sidebar"><div class="brand"><span class="brand-mark">✦</span><span>GlobeTrotter</span></div><button class="mobile-close" data-close-sidebar>×</button><nav><p class="nav-label">Workspace</p><button class="nav-item active" data-page="dashboard"><i>⌂</i> Overview</button><button class="nav-item" data-page="trips"><i>▱</i> My trips</button><button class="nav-item" data-page="discover"><i>⌕</i> Discover</button><p class="nav-label">Search</p><button class="nav-item" data-page="activity-city-search"><i>⌕</i> Activity/City Search Page</button><p class="nav-label">Plan</p><button class="nav-item" data-page="itinerary"><i>✣</i> Itinerary</button><button class="nav-item" data-page="calendar"><i>□</i> Calendar</button><button class="nav-item" data-page="budget"><i>◒</i> Budget</button><p class="nav-label">Community</p><button class="nav-item" data-page="community"><i>◉</i> Community</button><button class="nav-item" data-page="shared"><i>↗</i> Shared trips</button><p class="nav-label">Account</p><button class="nav-item" data-page="profile"><i>◯</i> Profile & settings</button></nav><div class="side-tip"><span>✦</span><div><b>Travel smarter</b><small>Keep your itinerary and budget in sync.</small></div></div><button class="logout hidden" data-auth-login onclick="window.location.href='login.html?redirectTo=/dashboard'">↪ <span>Sign in</span></button><button class="logout" data-logout>↪ <span>Sign out</span></button></aside>
+  <main class="main"><header class="topbar"><button class="hamburger" data-open-sidebar>☰</button><div class="breadcrumbs" id="breadcrumbs">Overview</div><div class="top-actions"><button class="icon-btn" data-notifications title="Notifications">♢<span class="dot"></span></button><button class="avatar" data-page="profile">AM</button></div></header><div id="content" class="content"></div></main>
+</div>
+<div id="modal" class="modal hidden"><div class="modal-backdrop" data-close-modal></div><div class="modal-card" id="modalCard"></div></div>
+<script src="script.js"></script>
+</body></html>
