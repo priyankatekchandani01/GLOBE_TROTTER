@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>GlobeTrotter — Create a New Trip</title>
+    <link rel="icon" href="assets/globetrotter-logo.jpeg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0b2540;
+            --muted: #71859a;
+            --blue: #1497df;
+            --blue2: #0875bd;
+            --line: #d8e7ef;
+            --surface: #fff;
+            --sky: #eaf7ff
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            font-family: "DM Sans", sans-serif;
+            color: var(--ink);
+            background: linear-gradient(135deg, #f4fbff, #eaf6fc 48%, #f9fcfe);
+            min-height: 100vh
+        }
+
+        body:before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 90% 0%, rgba(67, 195, 239, .12), transparent 28%);
+            z-index: -1
+        }
+
+        .top {
+            height: 74px;
+            max-width: 1140px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px
+        }
+
+        .brand {
+            font: 800 22px Manrope;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .globe {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #fff;
+            border: 2px solid #172f48;
+            font-size: 20px
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(145deg, #d8eef8, #a8c9d9);
+            border: 2px solid #fff;
+            box-shadow: 0 5px 15px #8da9b833;
+            font-weight: 700;
+            font-size: 13px
+        }
+
+        .bell {
+            font-size: 23px;
+            color: #50697c
+        }
+
+        .wrap {
+            max-width: 1080px;
+            margin: 8px auto 34px;
+            padding: 0 12px
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid #dbe7ed;
+            border-radius: 19px;
+            box-shadow: 0 16px 42px rgba(20, 72, 104, .13);
+            overflow: hidden
+        }
+
+        .panel-title {
+            font: 800 25px Manrope;
+            padding: 22px 30px 18px;
+            border-bottom: 1px solid #e3ebef
+        }
+
+        .inner {
+            padding: 14px 30px 34px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .inner:after {
+            content: "";
+            position: absolute;
+            right: -20px;
+            top: 55px;
+            width: 390px;
+            height: 260px;
+            opacity: .12;
+            background: radial-gradient(ellipse at center, #4bb4de 0 8%, transparent 9%), linear-gradient(20deg, transparent 45%, #5fb9d8 46% 48%, transparent 49%);
+            filter: blur(.3px);
+            pointer-events: none
+        }
+
+        .subtitle {
+            font: 700 22px Manrope;
+            margin: 0 0 20px
+        }
+
+        .form-area {
+            position: relative;
+            z-index: 2;
+            max-width: 610px
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            align-items: center;
+            gap: 16px;
+            margin: 10px 0
+        }
+
+        .row label {
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .input,
+        .date {
+            height: 38px;
+            border: 1px solid #b9cfdb;
+            background: #edf7fc;
+            border-radius: 9px;
+            padding: 0 13px;
+            font: 500 13px "DM Sans";
+            color: #345166;
+            outline: none
+        }
+
+        .input:focus,
+        .date:focus {
+            border-color: #3aaadd;
+            box-shadow: 0 0 0 3px #52bfe72b;
+            background: #fff
+        }
+
+        .dates {
+            display: flex;
+            gap: 9px
+        }
+
+        .dates .date {
+            flex: 1
+        }
+
+        .primary {
+            border: 0;
+            color: white;
+            background: linear-gradient(135deg, #1598e1, #0875bd);
+            height: 39px;
+            border-radius: 9px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 8px 18px #0d86c733;
+            cursor: pointer
+        }
+
+        .primary:hover {
+            filter: saturate(1.08);
+            transform: translateY(-1px)
+        }
+
+        .save-row {
+            padding-left: 166px;
+            margin-top: 9px
+        }
+
+        .save-row .primary {
+            width: 310px;
+            max-width: 100%
+        }
+
+        .suggest-title {
+            font: 800 22px Manrope;
+            margin: 37px 0 2px
+        }
+
+        .suggest-sub {
+            font-size: 13px;
+            color: #6e8292;
+            margin: 0 0 18px
+        }
+
+        .suggestions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px 52px;
+            padding: 0 16px;
+            position: relative;
+            z-index: 2
+        }
+
+        .suggest-card {
+            height: 208px;
+            border: 1px solid #d6e2e8;
+            border-radius: 13px;
+            background: #fff;
+            padding: 7px;
+            box-shadow: 0 8px 18px rgba(31, 79, 104, .15);
+            position: relative
+        }
+
+        .suggest-img {
+            height: 194px;
+            border-radius: 9px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden
+        }
+
+        .tag {
+            position: absolute;
+            left: 7px;
+            top: 7px;
+            background: #e6f5fbdd;
+            border: 1px solid #c7e5f0;
+            border-radius: 5px;
+            padding: 4px 7px;
+            font-size: 11px;
+            color: #37576b
+        }
+
+        .add {
+            position: absolute;
+            right: 7px;
+            top: 7px;
+            width: 22px;
+            height: 22px;
+            border: 0;
+            border-radius: 6px;
+            background: #13a2df;
+            color: #fff;
+            font-size: 20px;
+            line-height: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px #1189bb55
+        }
+
+        .caption {
+            position: absolute;
+            left: 9px;
+            right: 9px;
+            bottom: 7px;
+            color: #fff;
+            font: 800 16px Manrope;
+            text-shadow: 0 2px 4px #000, 0 1px 8px #000;
+            line-height: 1.1
+        }
+
+        .image-brand {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            width: 210px;
+            height: 48px
+        }
+
+        .image-brand img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center
+        }
+
+        .toast {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            background: #102a43;
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            box-shadow: 0 12px 30px #102a4333;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: .2s;
+            z-index: 20;
+            font-size: 13px
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .loading {
+            font-size: 13px;
+            color: #71859a;
+            text-align: center;
+            padding: 25px
+        }
+
+        @media(max-width:850px) {
+            .suggestions {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px
+            }
+
+            .row {
+                grid-template-columns: 125px 1fr
+            }
+
+            .save-row {
+                padding-left: 141px
+            }
+        }
+
+        @media(max-width:560px) {
+            .top {
+                height: 65px
+            }
+
+            .brand {
+                font-size: 19px
+            }
+
+            .panel-title {
+                font-size: 21px;
+                padding: 18px
+            }
+
+            .inner {
+                padding: 12px 18px 25px
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+                gap: 6px
+            }
+
+            .dates {
+                flex-direction: column
+            }
+
+            .save-row {
+                padding-left: 0
+            }
+
+            .save-row .primary {
+                width: 100%
+            }
+
+            .suggestions {
+                grid-template-columns: 1fr;
+                padding: 0 3px
+            }
+
+            .suggest-title {
+                font-size: 19px
+            }
+
+            .inner:after {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <div class="brand image-brand"><img src="assets/globetrotter-logo.jpeg" alt="GlobalTrotters"></div>
+        <div class="profile">
+            <div class="avatar" id="avatar">GT</div><span class="bell">♧</span>
+        </div>
+    </header>
+    <main class="wrap">
+        <section class="panel">
+            <div class="panel-title">Create a New Trip</div>
+            <div class="inner">
+                <h1 class="subtitle">Plan a new trip</h1>
+                <div class="form-area">
+                    <div class="row"><label for="tripName">Trip Name</label><input class="input" id="tripName" required
+                            placeholder="e.g., European Summer Adventure"></div>
+                    <div class="row"><label for="destination">Select a Place / Destination</label><input class="input"
+                            id="destination" list="destinations" placeholder="⌖  Search city or landmark..."><datalist
+                            id="destinations">
+                            <option>Paris</option>
+                            <option>Dubai</option>
+                            <option>Tokyo</option>
+                            <option>Bali</option>
+                            <option>Grand Canyon</option>
+                            <option>Venice</option>
+                            <option>Kyoto</option>
+                            <option>Swiss Alps</option>
+                        </datalist></div>
+                    <div class="row"><label>Start Date</label>
+                        <div class="dates"><input class="date" id="tripStart" type="date" required><input class="date"
+                                id="tripEnd" type="date" required></div>
+                    </div>
+                    <div class="save-row"><button class="primary" id="saveTrip">Save &amp; Plan Trip</button></div>
+                </div>
+                <h2 class="suggest-title">Suggestions for Places to Visit / Activities to Perform</h2>
+                <p class="suggest-sub">Popular attractions based on your selected destination</p>
+                <div id="suggestions" class="suggestions"></div>
+            </div>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script>
+        const API = '../backend/api.php';
+        const suggestions = [
+            {name: 'Eiffel Tower Tour', type: 'Sightseeing', city: 'Paris', image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=700&q=85'},
+            {name: 'Burj Khalifa Observation Deck', type: 'Adventure', city: 'Dubai', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=700&q=85'},
+            {name: 'Shibuya Crossing Experience', type: 'Iconic Landmark', city: 'Tokyo', image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=700&q=85'},
+            {name: 'Bali Beach Relaxation', type: 'Sightseeing', city: 'Bali', image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=700&q=85'},
+            {name: 'Grand Canyon Helicopter Tour', type: 'Adventure', city: 'Grand Canyon', image: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?auto=format&fit=crop&w=700&q=85'},
+            {name: 'Venice Gondola Ride', type: 'Iconic Landmark', city: 'Venice', image: 'https://images.unsplash.com/photo-1514890547357-a9ee288728e0?auto=format&fit=crop&w=700&q=85'}
+        ];
+        let selected = [];
+        const $ = id => document.getElementById(id); const toast = m => {const t = $('toast'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2300)};
+        function renderSuggestions() {const q = $('destination').value.trim().toLowerCase(); const list = q ? suggestions.filter(x => x.city.toLowerCase().includes(q) || x.name.toLowerCase().includes(q) || x.type.toLowerCase().includes(q)) : suggestions; $('suggestions').innerHTML = list.map((x, i) => `<article class="suggest-card"><div class="suggest-img" style="background-image:url('${x.image}')"><span class="tag">${x.type}</span><button class="add" data-add="${suggestions.indexOf(x)}">+</button><div class="caption">${x.name}</div></div></article>`).join('') || '<div class="loading">No matching suggestions yet.</div>'; document.querySelectorAll('[data-add]').forEach(b => b.onclick = () => {const x = suggestions[Number(b.dataset.add)]; if (!selected.some(s => s.name === x.name)) {selected.push(x); b.textContent = '✓'; b.style.background = '#18a36d'; toast(x.name + ' added to your trip')} else toast(x.name + ' is already added')})}
+        async function api(action, body) {const r = await fetch(`${API}?action=${action}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}); const d = await r.json(); if (!r.ok || d.error) throw new Error(d.error || 'Request failed'); return d}
+        async function checkAuth() {try {const r = await fetch(`${API}?action=me`); const d = await r.json(); if (!d.user) {location.href = 'login.html?redirectTo=' + encodeURIComponent('/trips/new'); return false} $('avatar').textContent = (d.user.name || 'GT').split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase(); return true} catch (e) {location.href = 'login.html?redirectTo=' + encodeURIComponent('/trips/new'); return false} }
+        $('destination').addEventListener('input', renderSuggestions); renderSuggestions();
+        $('saveTrip').onclick = async () => {const name = $('tripName').value.trim(), city = $('destination').value.trim(), start = $('tripStart').value, end = $('tripEnd').value; if (!name || !city || !start || !end) {toast('Please enter trip name, destination and dates.'); return } if (end < start) {toast('End date must be after the start date.'); return } const btn = $('saveTrip'); btn.disabled = true; btn.textContent = 'Saving…'; try {const d = await api('create_trip', {name, start_date: start, end_date: end, budget: 0, style: 'Balanced', description: '', cover: ''}); let trip = d.trip; const stop = await api('add_stop', {trip_id: trip.id, city, start_date: start, end_date: end}); trip = stop.trip; for (const a of selected.filter(x => !city || x.city.toLowerCase() === city.toLowerCase())) {try {const ad = await api('add_activity', {trip_id: trip.id, city, name: a.name, time: 'Flexible', cost: 0, type: a.type}); trip = ad.trip} catch (_) { } } toast('Trip created successfully'); sessionStorage.setItem('globetrotterNewTrip', String(trip.id)); setTimeout(() => location.href = 'index.html?view=itinerary&trip=' + encodeURIComponent(trip.id), 650)} catch (e) {toast(e.message); btn.disabled = false; btn.textContent = 'Save & Plan Trip'} };
+        checkAuth();
+    </script>
+</body>
+
+</html>
