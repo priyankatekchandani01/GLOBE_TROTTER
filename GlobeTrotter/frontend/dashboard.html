@@ -1,205 +1,208 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Global Trotter — Travel Companion</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<div class="app" id="app">
-  <aside class="sidebar" id="sidebar">
-    <div class="logo">
-      <div class="logo-mark" aria-label="Global Trotter logo"><span>◌</span><i>✈</i></div>
-      <div><strong>Global</strong><em>Trotter</em><span>✈</span></div>
-    </div>
-    <nav class="nav">
-      <button class="nav-item active" data-page="dashboard"><span>⌂</span>Dashboard</button>
-      <button class="nav-item" data-page="trips"><span>▣</span>My Trips</button>
-      <button class="nav-item" data-page="explore"><span>⌕</span>Explore</button>
-      <button class="nav-item" data-page="favorites"><span>♡</span>Favorites</button>
-      <button class="nav-item" data-page="budget"><span>▤</span>Budget</button>
-      <button class="nav-item" data-page="itinerary"><span>◈</span>Itinerary</button>
-      <button class="nav-item" data-page="messages"><span>◌</span>Messages <b class="nav-badge">2</b></button>
-      <button class="nav-item" data-page="settings"><span>⚙</span>Settings</button>
-    </nav>
-    <div class="side-promo">
-      <div class="promo-title">✈ Plan smart,<br><b>Travel better.</b></div>
-      <p>Let Global Trotter make your journeys unforgettable.</p>
-      <div class="promo-illustration">🏝️ 🧳</div>
-    </div>
-    <button class="profile-mini" onclick="showPage('settings')">
-      <div class="avatar avatar-sm">SJ</div><div><b>Sarah Johnson</b><small>Explorer · ☆</small></div><span>⌃</span>
-    </button>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
-      <div class="greeting"><h1>Hey Sarah! <span>👋</span></h1><p>Where will your next adventure take you?</p></div>
-      <div class="top-tools">
-        <div class="search">
-          <span>⌕</span><input id="globalSearch" autocomplete="off" placeholder="Search destinations, trips..." oninput="globalSearch()">
-          <kbd>⌘ K</kbd>
-          <div class="search-suggestions" id="searchSuggestions"></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GlobeTrotter — Modern Travel Dashboard</title>
+    <meta
+      name="description"
+      content="A modern, responsive GlobeTrotter travel planning dashboard."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="toast" class="toast"></div>
+    <div id="authView" class="auth-shell">
+      <div class="auth-art">
+        <div class="brand brand-light">
+          <span class="brand-mark">✦</span> GlobeTrotter
         </div>
-        <button class="round-btn" aria-label="Notifications" onclick="toggleNotifications()">♧<i>3</i></button>
-        <button class="avatar avatar-sm" onclick="showPage('settings')">SJ</button>
+        <div class="art-copy">
+          <span class="eyebrow">TRAVEL, YOUR WAY</span>
+          <h1>Plan less.<br /><span>Experience more.</span></h1>
+          <p>
+            Build beautiful multi-city journeys, discover hidden gems, and keep
+            every detail in one calm, intelligent workspace.
+          </p>
+          <div class="floating-stat">
+            <strong>24,860+</strong><span>journeys planned</span>
+          </div>
+        </div>
+        <div class="route route-a"></div>
+        <div class="route route-b"></div>
       </div>
-      <div class="notification-panel" id="notificationPanel">
-        <div class="panel-head"><b>Notifications</b><button onclick="toggleNotifications()">×</button></div>
-        <div class="notif unread">🌴 <div><b>Goa getaway</b><p>Your hotel confirmation is ready.</p><small>10 min ago</small></div></div>
-        <div class="notif unread">💳 <div><b>Budget alert</b><p>You've used 72% of your trip budget.</p><small>1 hour ago</small></div></div>
-        <div class="notif">✨ <div><b>New recommendation</b><p>Amalfi Coast matches your interests.</p><small>Yesterday</small></div></div>
+      <div class="auth-panel">
+        <div class="auth-card">
+          <div class="brand">
+            <span class="brand-mark">✦</span> GlobeTrotter
+          </div>
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-auth="login">Sign in</button
+            ><button class="auth-tab" data-auth="signup">Create account</button>
+          </div>
+          <form id="loginForm" class="auth-form">
+            <div>
+              <label>Username or Email</label
+              ><input
+                id="loginIdentifier"
+                type="text"
+                required
+                placeholder="Username or email"
+                autocomplete="username"
+              />
+            </div>
+            <div>
+              <label>Password</label>
+              <div class="password">
+                <input
+                  id="loginPassword"
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                  autocomplete="current-password"
+                /><button type="button" class="eye" data-toggle-password>
+                  ◉
+                </button>
+              </div>
+            </div>
+            <div class="auth-row">
+              <label class="check"
+                ><input id="rememberMe" type="checkbox" /> Remember me</label
+              ><button type="button" class="link-btn" data-forgot>
+                Forgot password?
+              </button>
+            </div>
+            <button class="primary wide" type="submit">
+              Sign in <span>→</span>
+            </button>
+          </form>
+          <form id="signupForm" class="auth-form hidden">
+            <div>
+              <label>Full Name</label
+              ><input
+                id="signupName"
+                required
+                placeholder="Aarav Mehta"
+                autocomplete="name"
+              />
+            </div>
+            <div>
+              <label>Username</label
+              ><input
+                id="signupUsername"
+                required
+                minlength="3"
+                maxlength="30"
+                pattern="[A-Za-z0-9_]{3,30}"
+                placeholder="aarav_mehta"
+                autocomplete="username"
+              />
+            </div>
+            <div>
+              <label>Email</label
+              ><input
+                id="signupEmail"
+                type="email"
+                required
+                placeholder="you@example.com"
+                autocomplete="email"
+              />
+            </div>
+            <div>
+              <label>Password</label
+              ><input
+                id="signupPassword"
+                type="password"
+                minlength="8"
+                required
+                placeholder="At least 8 characters"
+                autocomplete="new-password"
+              />
+            </div>
+            <div class="password-hint">
+              Use 8+ characters with an uppercase letter and a number.
+            </div>
+            <div>
+              <label>Confirm Password</label
+              ><input
+                id="signupConfirmPassword"
+                type="password"
+                minlength="8"
+                required
+                placeholder="Confirm password"
+                autocomplete="new-password"
+              />
+            </div>
+            <button class="primary wide" type="submit">
+              Create my account <span>→</span>
+            </button>
+          </form>
+        </div>
       </div>
-    </header>
-
-    <div class="content">
-      <!-- DASHBOARD -->
-      <section class="page active" id="page-dashboard">
-        <div class="hero-card" onclick="showToast('Your dream trip planner is ready ✨')">
-          <img src="assets/hero.jpg" alt="Tropical travel hero">
-        </div>
-
-        <div class="quick-grid">
-          <div class="section-title compact"><h2>Quick Actions</h2></div>
-          <div class="quick-actions">
-            <button class="quick q-blue" onclick="openTripModal()"><span>＋</span><b>Plan<br>New Trip</b></button>
-            <button class="quick q-green" onclick="showPage('explore')"><span>◎</span><b>Explore<br>Destinations</b></button>
-            <button class="quick q-purple" onclick="showPage('itinerary')"><span>♧</span><b>Create<br>Itinerary</b></button>
-            <button class="quick q-orange" onclick="showPage('budget')"><span>▤</span><b>Track<br>Expenses</b></button>
-          </div>
-        </div>
-
-        <div class="dashboard-grid">
-          <div>
-            <div class="section-title"><h2>🧳 Your Upcoming Trips</h2><button onclick="showPage('trips')">View all trips →</button></div>
-            <div class="trip-grid">
-              <article class="trip-card" onclick="openTripDetails('Goa Getaway')">
-                <div class="trip-image"><img src="assets/goa.jpg"><span class="trip-tag">Upcoming</span><button class="dots" onclick="event.stopPropagation();showToast('Trip menu opened')">•••</button></div>
-                <div class="trip-body"><h3>Goa Getaway</h3><p>⌖ Goa, India</p><p>▣ 12 Dec — 16 Dec, 2026</p><div><span>4 Days · 3 Nights</span><b>₹25,000</b></div></div>
-              </article>
-              <article class="trip-card" onclick="openTripDetails('Dubai Adventure')">
-                <div class="trip-image"><img src="assets/dubai.jpg"><span class="trip-tag">Upcoming</span><button class="dots" onclick="event.stopPropagation();showToast('Trip menu opened')">•••</button></div>
-                <div class="trip-body"><h3>Dubai Adventure</h3><p>⌖ Dubai, UAE</p><p>▣ 10 Jan — 15 Jan, 2027</p><div><span>5 Days · 4 Nights</span><b>₹65,000</b></div></div>
-              </article>
-              <article class="trip-card" onclick="openTripDetails('Manali Escape')">
-                <div class="trip-image"><img src="assets/manali.jpg"><span class="trip-tag">Upcoming</span><button class="dots" onclick="event.stopPropagation();showToast('Trip menu opened')">•••</button></div>
-                <div class="trip-body"><h3>Manali Escape</h3><p>⌖ Manali, India</p><p>▣ 18 Feb — 22 Feb, 2027</p><div><span>4 Days · 3 Nights</span><b>₹20,000</b></div></div>
-              </article>
-            </div>
-          </div>
-
-          <div class="budget-panel">
-            <div class="section-title"><h2>Budget Overview</h2><button onclick="showPage('budget')">View Details →</button></div>
-            <div class="budget-card">
-              <div class="budget-top"><span>Total Trip Budget</span><select><option>This Year</option><option>This Month</option></select></div>
-              <strong>₹1,10,000</strong>
-              <div class="progress"><span style="width:72%"></span><b>72%</b></div>
-              <div class="budget-splits"><div><span>💚</span><small>Spent</small><b>₹78,800</b></div><div><span>▣</span><small>Remaining</small><b>₹31,200</b></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="dashboard-grid lower">
-          <div>
-            <div class="section-title"><h2>🌐 Popular Destinations</h2><button onclick="showPage('explore')">Explore all →</button></div>
-            <div class="destination-row">
-              <article class="destination-card" onclick="toggleFavorite(this,'Bali')"><img src="assets/bali.jpg"><div><b>Bali</b><small>Indonesia</small><button class="heart">♡</button></div></article>
-              <article class="destination-card" onclick="toggleFavorite(this,'Santorini')"><img src="assets/santorini.jpg"><div><b>Santorini</b><small>Greece</small><button class="heart">♡</button></div></article>
-              <article class="destination-card" onclick="toggleFavorite(this,'Paris')"><img src="assets/paris.jpg"><div><b>Paris</b><small>France</small><button class="heart">♡</button></div></article>
-              <article class="destination-card" onclick="toggleFavorite(this,'Tokyo')"><img src="assets/tokyo.jpg"><div><b>Tokyo</b><small>Japan</small><button class="heart">♡</button></div></article>
-            </div>
-          </div>
-          <div>
-            <div class="section-title"><h2>✧ Recommended For You</h2><button onclick="showPage('explore')">View all →</button></div>
-            <article class="recommendation" onclick="showToast('Opening Amalfi Coast ✨')">
-              <img src="assets/amalfi.jpg"><div class="rec-copy"><span class="best">Best Seller</span><h3>Amalfi Coast</h3><p>Italy</p><small>Best time to visit: Apr — Jun</small><b>From ₹45,000</b><button>Explore Now →</button></div>
-              <button class="rec-heart" onclick="event.stopPropagation();toggleFavorite(this,'Amalfi Coast')">♡</button>
-            </article>
-            <div class="dots-nav"><i class="active"></i><i></i><i></i></div>
-          </div>
-        </div>
-
-        <div class="bottom-banners">
-          <div class="inspiration"><img src="assets/promo.jpg"><div><h3>Let's make your dream journey a reality ✈</h3><p>Personalized plans · Smart budget · Hassle-free travel</p></div></div>
-          <div class="quote"><img src="assets/quote.jpg"></div>
-        </div>
-      </section>
-
-      <!-- TRIPS -->
-      <section class="page" id="page-trips">
-        <div class="page-heading"><div><span class="eyebrow">YOUR ADVENTURES</span><h2>My Trips</h2><p>Every journey, beautifully organized.</p></div><button class="primary" onclick="openTripModal()">＋ Plan New Trip</button></div>
-        <div class="filter-row"><button class="filter active">All <b>3</b></button><button class="filter">Upcoming <b>3</b></button><button class="filter">Past <b>0</b></button><button class="filter">Drafts <b>1</b></button></div>
-        <div class="trip-list">
-          <article class="wide-trip"><img src="assets/goa.jpg"><div><span class="trip-tag">UPCOMING</span><h3>Goa Getaway</h3><p>Goa, India · 12 — 16 Dec 2026</p><div class="chips"><span>4 Days</span><span>3 Nights</span><span>Beach</span></div></div><strong>₹25,000</strong><button class="outline" onclick="openTripDetails('Goa Getaway')">View Trip</button></article>
-          <article class="wide-trip"><img src="assets/dubai.jpg"><div><span class="trip-tag">UPCOMING</span><h3>Dubai Adventure</h3><p>Dubai, UAE · 10 — 15 Jan 2027</p><div class="chips"><span>5 Days</span><span>4 Nights</span><span>City</span></div></div><strong>₹65,000</strong><button class="outline" onclick="openTripDetails('Dubai Adventure')">View Trip</button></article>
-          <article class="wide-trip"><img src="assets/manali.jpg"><div><span class="trip-tag">UPCOMING</span><h3>Manali Escape</h3><p>Manali, India · 18 — 22 Feb 2027</p><div class="chips"><span>4 Days</span><span>3 Nights</span><span>Mountains</span></div></div><strong>₹20,000</strong><button class="outline" onclick="openTripDetails('Manali Escape')">View Trip</button></article>
-        </div>
-      </section>
-
-      <!-- EXPLORE -->
-      <section class="page" id="page-explore">
-        <div class="page-heading"><div><span class="eyebrow">DISCOVER</span><h2>Explore Destinations</h2><p>Find a place that feels like your next story.</p></div></div>
-        <div class="explore-search"><span>⌕</span><input id="destinationSearch" placeholder="Search Bali, Paris, beaches..." oninput="filterExplore()"><button onclick="document.getElementById('destinationSearch').value='';filterExplore()">Clear</button></div>
-        <div class="explore-grid" id="exploreGrid">
-          <article data-name="bali indonesia beach"><img src="assets/bali.jpg"><div><span>INDONESIA</span><h3>Bali</h3><p>Beaches · Temples · Wellness</p><button onclick="toggleFavorite(this,'Bali')">♡ Save</button></div></article>
-          <article data-name="santorini greece sea"><img src="assets/santorini.jpg"><div><span>GREECE</span><h3>Santorini</h3><p>Sea · Sunsets · Villages</p><button onclick="toggleFavorite(this,'Santorini')">♡ Save</button></div></article>
-          <article data-name="paris france culture"><img src="assets/paris.jpg"><div><span>FRANCE</span><h3>Paris</h3><p>Art · Cafés · Romance</p><button onclick="toggleFavorite(this,'Paris')">♡ Save</button></div></article>
-          <article data-name="tokyo japan culture"><img src="assets/tokyo.jpg"><div><span>JAPAN</span><h3>Tokyo</h3><p>Food · Culture · Energy</p><button onclick="toggleFavorite(this,'Tokyo')">♡ Save</button></div></article>
-          <article data-name="goa india beach"><img src="assets/goa.jpg"><div><span>INDIA</span><h3>Goa</h3><p>Beaches · Cafés · Nightlife</p><button onclick="toggleFavorite(this,'Goa')">♡ Save</button></div></article>
-          <article data-name="manali india mountain"><img src="assets/manali.jpg"><div><span>INDIA</span><h3>Manali</h3><p>Mountains · Snow · Adventure</p><button onclick="toggleFavorite(this,'Manali')">♡ Save</button></div></article>
-        </div>
-      </section>
-
-      <!-- FAVORITES -->
-      <section class="page" id="page-favorites">
-        <div class="page-heading"><div><span class="eyebrow">YOUR WISHLIST</span><h2>Favorites</h2><p>Places you don't want to forget.</p></div></div>
-        <div id="favoriteList" class="favorite-grid"></div>
-      </section>
-
-      <!-- BUDGET -->
-      <section class="page" id="page-budget">
-        <div class="page-heading"><div><span class="eyebrow">SMART TRAVEL</span><h2>Budget Tracker</h2><p>Keep every rupee working for your adventure.</p></div><button class="primary" onclick="openExpenseModal()">＋ Add Expense</button></div>
-        <div class="budget-overview"><div><small>Total Budget</small><b>₹1,10,000</b><span>72% used</span></div><div><small>Spent</small><b>₹78,800</b><span class="green">On track</span></div><div><small>Remaining</small><b>₹31,200</b><span>28% left</span></div></div>
-        <div class="expense-card"><div class="section-title"><h2>Recent Expenses</h2><button onclick="showToast('All expenses loaded')">View all →</button></div><table><thead><tr><th>Expense</th><th>Category</th><th>Date</th><th>Amount</th></tr></thead><tbody id="expenseRows"><tr><td>Hotel — Goa</td><td>🏨 Stay</td><td>08 Dec</td><td>₹12,500</td></tr><tr><td>Flight tickets</td><td>✈ Transport</td><td>02 Dec</td><td>₹9,800</td></tr><tr><td>Beach club</td><td>🍹 Activities</td><td>01 Dec</td><td>₹3,200</td></tr></tbody></table></div>
-      </section>
-
-      <!-- ITINERARY -->
-      <section class="page" id="page-itinerary">
-        <div class="page-heading"><div><span class="eyebrow">GOA GETAWAY</span><h2>Itinerary</h2><p>12 — 16 December 2026 · 4 days</p></div><button class="primary" onclick="showToast('Share link copied!')">↗ Share Trip</button></div>
-        <div class="itinerary-wrap"><div class="timeline">
-          <article><div class="date">12<br><small>DEC</small></div><div class="event"><span>09:20 AM</span><h3>✈ Arrive in Goa</h3><p>Airport pickup → hotel check-in</p><button onclick="showToast('Event marked complete')">Mark complete</button></div></article>
-          <article><div class="date">13<br><small>DEC</small></div><div class="event"><span>10:00 AM</span><h3>🏖️ Baga Beach Day</h3><p>Breakfast · Beach · Sunset café</p><button onclick="showToast('Directions opened')">View route</button></div></article>
-          <article><div class="date">14<br><small>DEC</small></div><div class="event"><span>11:30 AM</span><h3>🌴 Old Goa Tour</h3><p>Churches · Heritage walk · Local lunch</p><button onclick="showToast('Activity details opened')">Details</button></div></article>
-          <article><div class="date">15<br><small>DEC</small></div><div class="event"><span>05:00 PM</span><h3>🌅 Sunset Cruise</h3><p>Mandovi River · Live music</p><button onclick="showToast('Booking confirmed')">Booking</button></div></article>
-        </div><aside class="itinerary-side"><div class="mini-map">GOA<br><span>📍</span></div><h3>Trip Progress</h3><div class="progress"><span style="width:68%"></span></div><b>68% planned</b><hr><p>🏨 3 nights booked</p><p>✈ Flights confirmed</p><p>🎟 4 activities</p></aside></div>
-      </section>
-
-      <!-- MESSAGES -->
-      <section class="page" id="page-messages">
-        <div class="page-heading"><div><span class="eyebrow">CONNECT</span><h2>Messages</h2><p>Travel plans are better together.</p></div><button class="primary" onclick="showToast('New message composer opened')">＋ New Message</button></div>
-        <div class="messages-card"><div class="chat-list"><button class="chat active"><span class="avatar">AK</span><div><b>Alex Kumar</b><small>Goa itinerary looks amazing!</small></div><i>2</i></button><button class="chat"><span class="avatar">RS</span><div><b>Riya Shah</b><small>Can we add a sunset cruise?</small></div></button><button class="chat"><span class="avatar">GT</span><div><b>Global Trotter</b><small>Your Dubai booking is confirmed.</small></div></button></div><div class="conversation"><div class="conversation-head"><span class="avatar">AK</span><b>Alex Kumar</b></div><div class="bubble theirs">Goa itinerary looks amazing! 🌴</div><div class="bubble mine">Can't wait! I added the sunset cruise too 😊</div><div class="bubble theirs">Perfect. Let's do it!</div><div class="composer"><input placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMessage(this)"><button onclick="sendMessage(this.previousElementSibling)">➤</button></div></div></div>
-      </section>
-
-      <!-- SETTINGS -->
-      <section class="page" id="page-settings">
-        <div class="page-heading"><div><span class="eyebrow">PERSONALIZE</span><h2>Settings</h2><p>Make Global Trotter work your way.</p></div></div>
-        <div class="settings-grid"><div class="settings-card profile-settings"><div class="avatar avatar-lg">SJ</div><h2>Sarah Johnson</h2><p>Explorer · India</p><button class="outline" onclick="showToast('Profile editor opened')">Edit profile</button></div>
-        <div class="settings-card"><h3>Preferences</h3><label>Currency<select><option>INR — ₹</option><option>USD — $</option><option>EUR — €</option></select></label><label>Trip style<select><option>Balanced</option><option>Adventure</option><option>Relaxed</option></select></label><label class="toggle-row">Email notifications <input type="checkbox" checked><i></i></label><label class="toggle-row">Smart recommendations <input type="checkbox" checked><i></i></label><label class="toggle-row">Compact dashboard <input type="checkbox" id="compactToggle" onchange="toggleCompact()"><i></i></label><label class="toggle-row">Ocean glow <input type="checkbox" id="glowToggle" checked onchange="toggleGlow()"><i></i></label></div></div>
-      </section>
     </div>
-  </main>
-</div>
-
-<!-- MODALS -->
-<div class="overlay" id="tripModal"><div class="modal"><button class="close" onclick="closeModal('tripModal')">×</button><span class="eyebrow">NEW ADVENTURE</span><h2>Plan a new trip</h2><p>Let's turn a destination into a beautiful itinerary.</p><label>Destination<input id="newDestination" placeholder="e.g. Kerala, India"></label><div class="two-fields"><label>Start date<input type="date"></label><label>End date<input type="date"></label></div><label>Trip style<select><option>Culture & Food</option><option>Nature & Adventure</option><option>Beach & Relax</option><option>Luxury</option></select></label><button class="primary wide" onclick="createTrip()">Create My Trip ✨</button></div></div>
-
-<div class="overlay" id="expenseModal"><div class="modal"><button class="close" onclick="closeModal('expenseModal')">×</button><span class="eyebrow">BUDGET</span><h2>Add an expense</h2><label>Expense<input id="expenseName" placeholder="e.g. Airport transfer"></label><label>Category<select id="expenseCategory"><option>Transport</option><option>Stay</option><option>Food</option><option>Activities</option></select></label><label>Amount<input id="expenseAmount" type="number" placeholder="2500"></label><button class="primary wide" onclick="addExpense()">Add Expense</button></div></div>
-
-<div class="overlay" id="detailsModal"><div class="modal detail-modal"><button class="close" onclick="closeModal('detailsModal')">×</button><img id="detailImage"><span class="eyebrow">TRIP DETAILS</span><h2 id="detailTitle"></h2><p id="detailCopy"></p><div class="detail-actions"><button class="primary" onclick="showPage('itinerary');closeModal('detailsModal')">Open Itinerary</button><button class="outline" onclick="showToast('Trip saved to favorites');closeModal('detailsModal')">♡ Save</button></div></div></div>
-
-<div id="toast"></div>
-<script src="app.js"></script>
-</body>
+    <div id="appView" class="app hidden">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">✦</span><span>GlobeTrotter</span>
+        </div>
+        <button class="mobile-close" data-close-sidebar>×</button>
+        <nav>
+          <p class="nav-label">Workspace</p>
+          <button class="nav-item active" data-page="dashboard">
+            <i>⌂</i> Overview</button
+          ><button class="nav-item" data-page="trips"><i>▱</i> My trips</button
+          ><button class="nav-item" data-page="discover">
+            <i>⌕</i> Discover
+          </button>
+          <p class="nav-label">Plan</p>
+          <button class="nav-item" data-page="itinerary">
+            <i>✣</i> Itinerary</button
+          ><button class="nav-item" data-page="calendar">
+            <i>□</i> Calendar</button
+          ><button class="nav-item" data-page="budget"><i>◒</i> Budget</button>
+          <p class="nav-label">Community</p>
+          <button class="nav-item" data-page="community">
+            <i>◉</i> Community</button
+          ><button class="nav-item" data-page="shared">
+            <i>↗</i> Shared trips
+          </button>
+          <p class="nav-label">Account</p>
+          <button class="nav-item" data-page="profile">
+            <i>◯</i> Profile & settings
+          </button>
+        </nav>
+        <div class="side-tip">
+          <span>✦</span>
+          <div>
+            <b>Travel smarter</b
+            ><small>Keep your itinerary and budget in sync.</small>
+          </div>
+        </div>
+        <button class="logout" data-logout>↪ <span>Sign out</span></button>
+      </aside>
+      <main class="main">
+        <header class="topbar">
+          <button class="hamburger" data-open-sidebar>☰</button>
+          <div class="breadcrumbs" id="breadcrumbs">Overview</div>
+          <div class="top-actions">
+            <button class="icon-btn" data-notifications title="Notifications">
+              ♢<span class="dot"></span></button
+            ><button class="avatar" data-page="profile">AM</button>
+          </div>
+        </header>
+        <div id="content" class="content"></div>
+      </main>
+    </div>
+    <div id="modal" class="modal hidden">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-card" id="modalCard"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
