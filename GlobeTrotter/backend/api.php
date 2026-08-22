@@ -105,5 +105,5 @@ try{
  case 'toggle_share':$uid=auth();$d=body();$q=$db->prepare('UPDATE trips SET is_public=? WHERE id=? AND user_id=?');$q->execute([(int)$d['is_public'],(int)$d['id'],$uid]);out(['ok'=>true]);
  case 'public':$id=(int)($_GET['id']??0);$t=publicTrip($db,$id);if(!$t)out(['error'=>'Public trip not found.'],404);out(['trip'=>$t]);
  default:out(['error'=>'Unknown action.'],404);
- }
+ }//
 }catch(Throwable $e){out(['error'=>'Server error: '.$e->getMessage()],500);}
