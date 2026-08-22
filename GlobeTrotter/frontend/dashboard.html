@@ -1,9 +1,25 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      // Show the branded splash before the public login/app entry point.
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const isApp = params.get("app") === "1";
+        if (!isApp) {
+          document.documentElement.classList.add("show-splash");
+          window.addEventListener("load", function () {
+            setTimeout(function () {
+              window.location.replace("login.html");
+            }, 2200);
+          });
+        }
+      })();
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>GlobeTrotter — Modern Travel Dashboard</title>
+    <link rel="icon" href="assets/globetrotter-logo.jpeg" type="image/jpeg" />
     <meta
       name="description"
       content="A modern, responsive GlobeTrotter travel planning dashboard."
@@ -17,11 +33,18 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div
+      id="siteSplash"
+      class="site-splash"
+      aria-label="GlobeTrotter loading screen"
+    >
+      <img src="assets/globetrotter-splash.jpeg" alt="GlobalTrotters logo" />
+    </div>
     <div id="toast" class="toast"></div>
     <div id="authView" class="auth-shell">
       <div class="auth-art">
-        <div class="brand brand-light">
-          <span class="brand-mark">✦</span> GlobeTrotter
+        <div class="brand brand-light image-brand">
+          <img src="assets/globetrotter-logo.jpeg" alt="GlobalTrotters" />
         </div>
         <div class="art-copy">
           <span class="eyebrow">TRAVEL, YOUR WAY</span>
@@ -39,8 +62,8 @@
       </div>
       <div class="auth-panel">
         <div class="auth-card">
-          <div class="brand">
-            <span class="brand-mark">✦</span> GlobeTrotter
+          <div class="brand image-brand">
+            <img src="assets/globetrotter-logo.jpeg" alt="GlobalTrotters" />
           </div>
           <div class="auth-tabs">
             <button class="auth-tab active" data-auth="login">Sign in</button
@@ -148,8 +171,8 @@
     </div>
     <div id="appView" class="app hidden">
       <aside class="sidebar">
-        <div class="brand">
-          <span class="brand-mark">✦</span><span>GlobeTrotter</span>
+        <div class="brand image-brand">
+          <img src="assets/globetrotter-logo.jpeg" alt="GlobalTrotters" />
         </div>
         <button class="mobile-close" data-close-sidebar>×</button>
         <nav>
@@ -178,7 +201,9 @@
           </button>
           <p class="nav-label">Account</p>
           <button class="nav-item" data-page="profile">
-            <i>◯</i> Profile & settings
+            <i>◯</i> Profile & settings</button
+          ><button class="nav-item" data-admin-panel>
+            <i>▣</i> Admin Panel
           </button>
         </nav>
         <div class="side-tip">
