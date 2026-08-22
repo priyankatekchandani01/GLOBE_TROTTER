@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="assets/globetrotter-logo.jpeg" type="image/jpeg">
+<title>GlobeTrotter — Sign Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-auth-page="signup">
+<div class="auth-shell">
+  <div class="auth-art"><div class="brand brand-light image-brand"><img src="assets/globetrotter-logo.jpeg" alt="GlobalTrotters"></div><div class="art-copy"><span class="eyebrow">TRAVEL, YOUR WAY</span><h1>Plan less.<br><span>Experience more.</span></h1><p>Build beautiful multi-city journeys, discover hidden gems, and keep every detail in one calm, intelligent workspace.</p><div class="floating-stat"><strong>24,860+</strong><span>journeys planned</span></div></div><div class="route route-a"></div><div class="route route-b"></div></div>
+  <div class="auth-panel"><div class="auth-card"><div class="brand image-brand"><img src="assets/globetrotter-logo.jpeg" alt="GlobalTrotters"></div>
+    <div class="auth-tabs"><a class="auth-tab" href="login.html">Sign in</a><a class="auth-tab active" href="signup.html">Create account</a></div>
+    <form id="standaloneSignupForm" class="auth-form">
+      <div><label>Full Name</label><input id="signupName" required placeholder="Aarav Mehta" autocomplete="name"></div>
+      <div><label>Username</label><input id="signupUsername" required minlength="3" maxlength="30" pattern="[A-Za-z0-9_]{3,30}" placeholder="aarav_mehta" autocomplete="username"></div>
+      <div><label>Email</label><input id="signupEmail" type="email" required placeholder="you@example.com" autocomplete="email"></div>
+      <div><label>Password</label><input id="signupPassword" type="password" minlength="8" required placeholder="At least 8 characters" autocomplete="new-password"></div>
+      <div class="password-hint">Use 8+ characters with an uppercase letter and a number.</div>
+      <div><label>Confirm Password</label><input id="signupConfirmPassword" type="password" minlength="8" required placeholder="Confirm password" autocomplete="new-password"></div>
+      <div class="auth-page-message" data-auth-message></div>
+      <button class="primary wide" type="submit">Create my account <span>→</span></button>
+    </form>
+    <p class="auth-page-link">Already have an account? <a href="login.html">Sign in</a></p>
+  </div></div>
+</div>
+<script src="auth-pages.js"></script>
+</body></html>
